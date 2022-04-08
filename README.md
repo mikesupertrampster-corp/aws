@@ -1,2 +1,3 @@
-# aws
+# AWS
+
 AWS Setup via Terraform
