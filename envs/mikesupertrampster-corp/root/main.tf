@@ -1,10 +1,4 @@
 locals {
-  accounts = {
-    dev = {
-      parent = "dev"
-    }
-  }
-
   scp = {
     root = {
       DenyUserCreation = [
@@ -60,7 +54,7 @@ resource "aws_organizations_policy" "tag" {
           "@@assign": "Environment"
         },
         "tag_value": {
-          "@@assign": keys(local.accounts)
+          "@@assign": concat(keys(var.accounts), ["root"])
         },
         "enforced_for": {
           "@@assign": [
@@ -286,7 +280,6 @@ resource "aws_organizations_organizational_unit" "units" {
   for_each  = var.organisation_units
   name      = each.key
   parent_id = aws_organizations_organization.org.roots[0].id
-  tags      = merge(var.tags, { Environment = each.key })
 }
 
 resource "aws_organizations_policy_attachment" "tags" {
@@ -301,10 +294,9 @@ resource "aws_organizations_policy_attachment" "root" {
 }
 
 resource "aws_organizations_account" "accounts" {
-  for_each  = local.accounts
-  parent_id = aws_organizations_organizational_unit.units[each.value["parent"]].id
+  for_each  = var.accounts
+  parent_id = aws_organizations_organizational_unit.units[each.value["organisation_unit"]].id
   name      = each.key
-  role_name = "TerraformAdminRole"
-  email     = "mikesupertrampster+${each.key}@gmail.com"
-  tags      = merge(var.tags, { Environment = each.value["parent"] })
+  role_name = var.bootstrap_role
+  email     = format(var.organisation_email_pattern, each.key)
 }

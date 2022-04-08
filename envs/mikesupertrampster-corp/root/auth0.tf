@@ -22,7 +22,7 @@ data "aws_ssoadmin_instances" "sso" {}
 
 locals {
   aws_sso_acs_url   = "https://${data.aws_ssoadmin_instances.sso.id}.signin.aws.amazon.com/platform/saml/acs/${var.aws_acs_id}"
-  schema_claims_url = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/"
+  schema_claims_url = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims"
 }
 
 resource "auth0_client" "aws" {
