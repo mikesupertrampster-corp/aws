@@ -1,5 +1,7 @@
 module "kubernetes" {
   source             = "../kubernetes"
+  environment        = var.environment
+  flux_git_url       = var.flux_git_url
   keypair            = var.keypair
   private_subnet_ids = module.vpc.private_subnets
   public_subnet_ids  = module.vpc.public_subnets

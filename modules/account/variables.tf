@@ -19,6 +19,10 @@ variable "environment" {
   type = string
 }
 
+variable "flux_git_url" {
+  type = string
+}
+
 variable "keypair" {
   type = string
 }

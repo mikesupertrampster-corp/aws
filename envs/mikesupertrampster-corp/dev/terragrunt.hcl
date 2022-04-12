@@ -9,6 +9,7 @@ terraform {
 inputs = {
   account_alias  = "mikesupertrampster-dev"
   account_id     = 639369124033
+  flux_git_url   = "ssh://git@github.com/mikesupertrampster-corp/kubernetes-gitops.git"
   keypair        = "cardno:9"
   environment    = "dev"
   tags           = { Environment = "dev", Managed_By = "Terraform" }
