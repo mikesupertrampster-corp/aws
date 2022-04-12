@@ -3,11 +3,13 @@ include {
 }
 
 terraform {
-  source = "../../../modules//account_setup"
+  source = "../../../modules//account"
 }
 
 inputs = {
   account_alias  = "mikesupertrampster-dev"
   account_id     = 639369124033
+  keypair        = "cardno:9"
+  environment    = "dev"
   tags           = { Environment = "dev", Managed_By = "Terraform" }
 }
