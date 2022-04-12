@@ -6,8 +6,9 @@ import (
 )
 
 type config struct {
-	clusterName string
-	region      string
+	clusterName   string
+	nodeGroupName string
+	region        string
 }
 
 type cfg struct {
@@ -15,6 +16,10 @@ type cfg struct {
 
 	Cluster struct {
 		Name string `envconfig:"default=EKS"`
+	}
+
+	NodeGroup struct {
+		Name string `envconfig:"default=PublicNodeGroup"`
 	}
 }
 
@@ -25,7 +30,8 @@ func NewConfigFromEnv() *config {
 	}
 
 	return &config{
-		clusterName: c.Cluster.Name,
-		region:      c.Region,
+		clusterName:   c.Cluster.Name,
+		nodeGroupName: c.NodeGroup.Name,
+		region:        c.Region,
 	}
 }
