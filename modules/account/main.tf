@@ -1,3 +1,20 @@
+provider "aws" {
+  alias  = "root"
+  region = var.region
+}
+
+provider "aws" {
+  region = var.region
+
+  assume_role {
+    role_arn = "arn:aws:iam::${var.account_id}:role/${var.bootstrap_role}"
+  }
+
+  default_tags {
+    tags = var.tags
+  }
+}
+
 module "account_setup" {
   source        = "../setup"
   account_alias = var.account_alias
@@ -22,6 +39,14 @@ module "vpc" {
 module "ecs" {
   source = "../ecs"
 }
+
+module "jaeger" {
+  source      = "../jaeger"
+  vpc_id      = module.vpc.vpc_id
+  cluster_arn = module.ecs.arn
+  subnet_ids  = module.vpc.public_subnets
+}
+
 
 module "vault" {
   source      = "../vault"
