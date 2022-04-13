@@ -31,10 +31,14 @@ data "aws_ami" "eks" {
 }
 
 resource "aws_eks_node_group" "node_group" {
+  for_each = {
+    PublicNodeGroup = var.public_subnet_ids
+  }
+
   cluster_name    = aws_eks_cluster.eks.name
-  node_group_name = "PublicNodeGroup"
+  node_group_name = each.key
   node_role_arn   = aws_iam_role.node_group.arn
-  subnet_ids      = var.public_subnet_ids
+  subnet_ids      = each.value
 
   scaling_config {
     desired_size = 1

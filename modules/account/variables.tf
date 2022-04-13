@@ -23,6 +23,14 @@ variable "environment" {
   type = string
 }
 
+variable "flux_git_owner" {
+  type = string
+}
+
+variable "flux_git_repo" {
+  type = string
+}
+
 variable "flux_git_url" {
   type = string
 }

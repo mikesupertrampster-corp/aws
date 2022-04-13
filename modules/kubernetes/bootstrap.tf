@@ -110,12 +110,12 @@ resource "kubernetes_secret" "main" {
 }
 
 provider "github" {
-  owner = "mikesupertrampster-corp"
+  owner = var.flux_git_owner
 }
 
 resource "github_repository_deploy_key" "flux" {
   title      = "flux/${var.environment}"
-  repository = "kubernetes-gitops"
+  repository = var.flux_git_repo
   key        = tls_private_key.main.public_key_openssh
   read_only  = true
 }
