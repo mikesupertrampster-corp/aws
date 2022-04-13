@@ -1,4 +1,9 @@
 provider "aws" {
+  alias  = "root"
+  region = var.region
+}
+
+provider "aws" {
   region = var.region
 
   assume_role {
@@ -23,8 +28,8 @@ module "vpc" {
   cidr = var.cidr
 
   azs                    = data.aws_availability_zones.current.names
-  private_subnets        = [for netnum in range(100, 102) : cidrsubnet("10.0.0.0/16", 8, netnum)]
-  public_subnets         = [for netnum in range(0, 2) : cidrsubnet("10.0.0.0/16", 8, netnum)]
+  private_subnets        = [for netnum in range(100, 103) : cidrsubnet(var.cidr, 8, netnum)]
+  public_subnets         = [for netnum in range(0, 3) : cidrsubnet(var.cidr, 8, netnum)]
   enable_dns_hostnames   = true
   enable_dns_support     = true
   single_nat_gateway     = true

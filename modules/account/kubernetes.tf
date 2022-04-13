@@ -26,7 +26,6 @@ data "aws_iam_policy_document" "kubernetes_deletion" {
 }
 
 resource "aws_iam_role_policy" "kubernetes_deletion" {
-  name   = "EksDestroy"
   role   = module.kubernetes_deletion.role_name
   policy = data.aws_iam_policy_document.kubernetes_deletion.json
 }

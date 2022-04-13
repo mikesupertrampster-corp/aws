@@ -7,7 +7,7 @@ terraform {
 }
 
 variable "auth0_domain" {
-  type    = string
+  type = string
 }
 
 variable "aws_acs_id" {

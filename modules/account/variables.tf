@@ -6,6 +6,10 @@ variable "account_id" {
   type = string
 }
 
+variable "apex_domain" {
+  type = string
+}
+
 variable "bootstrap_role" {
   type = string
 }

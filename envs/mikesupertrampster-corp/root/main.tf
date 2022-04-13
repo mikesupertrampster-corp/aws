@@ -45,19 +45,19 @@ resource "aws_organizations_policy" "scp" {
 }
 
 resource "aws_organizations_policy" "tag" {
-  name     = "Mandatory"
-  type     = "TAG_POLICY"
-  content  = jsonencode({
-    "tags": {
-      "Environment": {
-        "tag_key": {
-          "@@assign": "Environment"
+  name = "Mandatory"
+  type = "TAG_POLICY"
+  content = jsonencode({
+    "tags" : {
+      "Environment" : {
+        "tag_key" : {
+          "@@assign" : "Environment"
         },
-        "tag_value": {
-          "@@assign": concat(keys(var.accounts), ["root"])
+        "tag_value" : {
+          "@@assign" : concat(keys(var.accounts), ["root"])
         },
-        "enforced_for": {
-          "@@assign": [
+        "enforced_for" : {
+          "@@assign" : [
             "amplifyuibuilder:component",
             "amplifyuibuilder:theme",
             "apigateway:apikeys",
