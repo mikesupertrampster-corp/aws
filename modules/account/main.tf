@@ -39,18 +39,3 @@ module "vpc" {
 module "ecs" {
   source = "../ecs"
 }
-
-module "jaeger" {
-  source      = "../jaeger"
-  vpc_id      = module.vpc.vpc_id
-  cluster_arn = module.ecs.arn
-  subnet_ids  = module.vpc.public_subnets
-}
-
-
-module "vault" {
-  source      = "../vault"
-  vpc_id      = module.vpc.vpc_id
-  cluster_arn = module.ecs.arn
-  subnet_ids  = module.vpc.public_subnets
-}
