@@ -5,7 +5,7 @@ terraform {
     organization = "mikesupertrampster-corp"
 
     workspaces {
-      name = "aws-root"
+      name = "terraform-aws-root"
     }
   }
 }
